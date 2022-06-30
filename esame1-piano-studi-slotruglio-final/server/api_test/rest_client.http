@@ -1,0 +1,45 @@
+# ALL OF THESE TESTS WORK WITHOUT AUTHENTICATION (NO USERNAME/PASSWORD)
+
+### get all courses
+GET http://localhost:3001/api/courses
+
+### get student study plan
+GET http://localhost:3001/api/studyPlan
+
+### get student study plan courses
+GET http://localhost:3001/api/studyPlan/courses
+
+### create study plan of user
+POST http://localhost:3001/api/studyPlan
+Content-Type: application/json
+
+{
+    "studyPlanType": "part-time",
+    "minCfu": 20,
+    "maxCfu": 40,
+    "actualCfu": 24,
+    "courses": [
+        "02GOLOV",
+        "05BIDOV",
+        "01UDFOV"
+        ]
+}
+
+### edit study plan of user
+PUT http://localhost:3001/api/studyPlan/courses
+Content-Type: application/json
+
+{
+    "studyPlanType": "part-time",
+    "minCfu": 20,
+    "maxCfu": 40,
+    "actualCfu": 24,
+    "courses": [
+        "02GOLOV",
+        "02KPNOV",
+        "01UDFOV"
+        ]
+}
+
+### delete study plan of user
+DELETE http://localhost:3001/api/studyPlan

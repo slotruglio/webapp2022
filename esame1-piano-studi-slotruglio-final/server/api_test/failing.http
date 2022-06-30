@@ -1,0 +1,102 @@
+# ALL OF THESE TESTS WORK WITHOUT AUTHENTICATION (NO USERNAME/PASSWORD)
+
+### create with bad format
+POST http://localhost:3001/api/studyPlan
+Content-Type: application/json
+
+{
+    "studyPlanType": "part-time",
+    "minCfu": "abc",
+    "maxCfu": "abc",
+    "actualCfu": 14.2,
+    "courses": [
+        "abc",
+        123,
+        " abcde "
+        ]
+}
+
+### create study plan of user - check cfu
+### cfu not in bounds
+POST http://localhost:3001/api/studyPlan
+Content-Type: application/json
+
+{
+    "studyPlanType": "part-time",
+    "minCfu": 20,
+    "maxCfu": 40,
+    "actualCfu": 12,
+    "courses": [
+        "02GOLOV",
+        "05BIDOV",
+        "01UDFOV"
+        ]
+}
+
+### create study plan of user - check courses
+### courses[2] is not in the database
+POST http://localhost:3001/api/studyPlan
+Content-Type: application/json
+
+{
+    "studyPlanType": "part-time",
+    "minCfu": 20,
+    "maxCfu": 40,
+    "actualCfu": 24,
+    "courses": [
+        "02GOLOV",
+        "05BIDOV",
+        "01BCDEF"
+        ]
+}
+
+### create study plan of user - check courses cfu
+### sum cfu is not equal to actual cfu
+POST http://localhost:3001/api/studyPlan
+Content-Type: application/json
+
+{
+    "studyPlanType": "part-time",
+    "minCfu": 20,
+    "maxCfu": 40,
+    "actualCfu": 25,
+    "courses": [
+        "02GOLOV",
+        "05BIDOV",
+        "01UDFOV"
+        ]
+}
+
+### create study plan of user - check courses compatibility
+### courses[1] is incompatible with courses[2]
+POST http://localhost:3001/api/studyPlan
+Content-Type: application/json
+
+{
+    "studyPlanType": "part-time",
+    "minCfu": 20,
+    "maxCfu": 40,
+    "actualCfu": 24,
+    "courses": [
+        "02GOLOV",
+        "01TXYOV",
+        "01UDFOV"
+        ]
+}
+
+### create study plan of user - check courses required
+### courses[1] requires a course that is not in the studyplan
+POST http://localhost:3001/api/studyPlan
+Content-Type: application/json
+
+{
+    "studyPlanType": "part-time",
+    "minCfu": 20,
+    "maxCfu": 40,
+    "actualCfu": 24,
+    "courses": [
+        "02LSEOV",
+        "05BIDOV",
+        "01UDFOV"
+        ]
+}
